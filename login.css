@@ -1,0 +1,35 @@
+body{
+    height: 100%;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
+a {
+    text-decoration: none;
+    transition: all 0.4s ease;
+    font-weight: 500;
+    color: #20212c;
+}
+
+h1 h2 h3 h4 h5 h6{
+    font-weight: 700 !important;
+}
+
+.navbar {
+    box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+}
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}

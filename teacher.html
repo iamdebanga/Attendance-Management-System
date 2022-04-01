@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="attendance.css">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#">iPRESENT</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto ">
+              <li class="nav-item" id="navbutton" >
+                <a class="nav-link" href="#home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#services">Services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Batches</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact Us</a>
+              </li>         
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <section id="home" class="bg-cover hero-section" style="background-image: url(images/hero.jpg)">
+        <div class="overlay"></div>
+        <div class="container text-white text-center">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="display-4" data-aos="zoom-in" style="padding-top: 18%;">We Design Remarkable and<br>
+                        Stunning Bootstrap Websites</h1>
+                    <p class="my-4" data-aos="fade-up">There are many variations of passages of Lorem Ipsum available, but the majority<br>
+                        have suffered alteration in some form, by injected humour, or randomised words</p>
+                    <button href="#" data-aos="fade-up" class="btn btn-main open-button" onclick="openForm()">Get started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <script>
+            var selectedRow = null
+      
+     // Form Submit Function
+     function onFormSubmit() {
+         // check validity
+         if (validate()) {
+             // store user data
+             var formData = readFormData();
+             // check empty row
+             if (selectedRow == null)
+             {
+                 // Insert New User Record
+                 insertNewRecord(formData);
+             }
+             else
+             {
+                 // Update New User Record
+                 updateRecord(formData);
+             }
+             // Reset Input Values
+             resetForm();
+         }
+     }
+     // Get Values From Form
+     function readFormData() {
+         var formData = {};
+         // Get Values From  Input
+         formData["userName"] = document.getElementById("userName").value;
+         formData["rollNo"] = document.getElementById("rollNo").value;
+         formData["stdClass"] = document.getElementById("stdClass").value;
+         formData["tsub"] = document.getElementById("tsub").value;
+         formData["age"] = document.getElementById("age").value;
+         // return Form Data
+         return formData;
+     }
+     // Insert New User Record
+     function insertNewRecord(data) {
+         var table = document.getElementById("stdlist").getElementsByTagName('tbody')[0];
+         var newRow = table.insertRow(table.length);
+         cell1 = newRow.insertCell(0);
+         cell1.innerHTML = data.userName;
+         cell2 = newRow.insertCell(1);
+         cell2.innerHTML = data.rollNo;
+         cell3 = newRow.insertCell(2);
+         cell3.innerHTML = data.stdClass;
+         cell4 = newRow.insertCell(3);
+         cell4.innerHTML = data.tsub;
+         cell5 = newRow.insertCell(4);
+         cell5.innerHTML = data.age;
+         cell5 = newRow.insertCell(5);
+         cell5.innerHTML = `<a onClick="onEdit(this)">Edit</a>
+         <a onClick="onDelete(this)">Delete</a>`;
+     }
+     // Reset Function
+     function resetForm() {
+         document.getElementById("userName").value = "";
+         document.getElementById("rollNo").value = "";
+         document.getElementById("stdClass").value = "";
+         document.getElementById("tsub").value = "";
+         document.getElementById("age").value = "";
+         selectedRow = null;
+     }
+     // Edit Function
+     function onEdit(td) {
+         selectedRow = td.parentElement.parentElement;
+         document.getElementById("userName").value = selectedRow.cells[0].innerHTML;
+         document.getElementById("rollNo").value = selectedRow.cells[1].innerHTML;
+         document.getElementById("stdClass").value = selectedRow.cells[2].innerHTML;
+         document.getElementById("tsub").value = selectedRow.cells[3].innerHTML;
+         document.getElementById("age").value = selectedRow.cells[4].innerHTML;
+     }
+     // Update Record
+     function updateRecord(formData) {
+         selectedRow.cells[0].innerHTML = formData.userName;
+         selectedRow.cells[1].innerHTML = formData.rollNo;
+         selectedRow.cells[2].innerHTML = formData.stdClass;
+         selectedRow.cells[3].innerHTML = formData.tsub;
+         selectedRow.cells[4].innerHTML = formData.age;
+     }
+     // Delete Function
+     function onDelete(td) {
+         if (confirm('Are you sure to delete this record ?')) {
+             row = td.parentElement.parentElement;
+             document.getElementById("stdlist").deleteRow(row.rowIndex);
+             resetForm();
+         }
+     }
+     // Check User validation
+     function validate() {
+         isValid = true;
+         // userName validation
+         if (document.getElementById("userName").value == "") {
+             isValid = false;
+             document.getElementById("userNamevalidationError").classList.remove("hide");
+         } else {
+             isValid = true;
+             if (!document.getElementById("userNamevalidationError").classList.contains("hide"))
+             {
+                 document.getElementById("userNamevalidationError").classList.add("hide");
+             }
+         }
+         // Roll No validation
+         if (document.getElementById("rollNo").value == "") {
+             isValid = false;
+             document.getElementById("rollNovalidationError").classList.remove("hide");
+         } else {
+             isValid = true;
+             if (!document.getElementById("rollNovalidationError").classList.contains("hide"))
+             {
+                 document.getElementById("rollNovalidationError").classList.add("hide");
+             }
+         }
+         // Std class validation
+         if (document.getElementById("stdClass").value == "") {
+             isValid = false;
+             document.getElementById("stdClassvalidationError").classList.remove("hide");
+         } else {
+             isValid = true;
+             if (!document.getElementById("stdClassvalidationError").classList.contains("hide"))
+             {
+                 document.getElementById("stdClassvalidationError").classList.add("hide");
+             }
+         }
+         // Tsub validation
+         if (document.getElementById("tsub").value == "") {
+             isValid = false;
+             document.getElementById("tsubvalidationError").classList.remove("hide");
+         } else {
+             isValid = true;
+             if (!document.getElementById("tsubvalidationError").classList.contains("hide"))
+             {
+                 document.getElementById("tsubvalidationError").classList.add("hide");
+             }
+         }
+         // Age validation
+         if (document.getElementById("age").value == "") {
+             isValid = false;
+             document.getElementById("agevalidationError").classList.remove("hide");
+         } else {
+             isValid = true;
+             if (!document.getElementById("agevalidationError").classList.contains("hide"))
+             {
+                 document.getElementById("agevalidationError").classList.add("hide");
+             }
+         }
+         return isValid;
+     }
+        </script>
+    </section>
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+   
+  </body>
+</html>
